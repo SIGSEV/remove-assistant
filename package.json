@@ -19,6 +19,7 @@
     "eslint": "^4.8.0",
     "eslint-config-prettier": "^2.6.0",
     "eslint-config-zavatta": "^6.0.1",
+    "pm2": "^2.7.1",
     "prettier": "^1.7.4"
   },
   "dependencies": {
