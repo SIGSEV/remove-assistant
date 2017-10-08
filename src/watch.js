@@ -1,8 +1,17 @@
-module.exports = function watch(client, user, onTweet) {
+const Twitter = require('twitter')
+
+const client = new Twitter({
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+})
+
+module.exports = function watch(user, onTweet) {
   console.log(`>> Watching [@${user}]`)
   const stream = client.stream('user', { with: user })
   stream.on('data', onTweet)
   stream.on('error', error => {
-    throw error
+    console.log(`x Problem connecting to ${user} stream: ${error}`)
   })
 }
