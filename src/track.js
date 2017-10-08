@@ -15,10 +15,15 @@ const refresh = async () => {
   Object.keys(streams).forEach(k => {
     if (!names.includes(k)) {
       streams[k].destroy()
+      delete streams[k]
     }
   })
 
   names.forEach(user => {
+    if (streams[user]) {
+      return
+    }
+
     streams[user] = watch(user, async tweet => {
       console.log(`>> @${user} just tweeted`)
 
