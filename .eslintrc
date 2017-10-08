@@ -2,5 +2,6 @@
   "extends": ["zavatta", "prettier"],
   "rules": {
     "no-console": 0,
+    "camelcase": 0,
   },
 }
