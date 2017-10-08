@@ -9,7 +9,6 @@ const RATE = 10e3
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 module.exports = async function verify() {
-  console.log(`>> [LAUNCHING VERIFICATION]`)
   const tweets = db.get('tweets').value()
   for (let i = 0; i < tweets.length; i++) {
     const tweet = tweets[i]

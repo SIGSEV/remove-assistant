@@ -5,7 +5,7 @@ module.exports = function watch(user, onTweet) {
   const stream = twitter.stream('user', { with: user })
   stream.on('data', tweet => {
     // prevent blaming myself. lel.
-    if (tweet.text.contains('did you just')) {
+    if (tweet.text.includes('did you just')) {
       return
     }
     onTweet(tweet)
