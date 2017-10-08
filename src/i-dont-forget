@@ -1,0 +1,14 @@
+#!/bin/env node
+
+require('dotenv').config()
+
+const track = require('./track')
+const verify = require('./verify')
+
+// verifying that nobody did deleted their tweets! omg!
+verify()
+
+// friendly watching people, and backup their tweets. keeping them warm.
+const tracking = process.argv.slice(2)
+
+tracking.forEach(user => track(user))
