@@ -11,7 +11,9 @@
     "start": "./src/i-dont-forget",
     "lint": "eslint src",
     "prettier": "prettier --write \"src/**/*.js\"",
-    "clear-db": "rm -f shots/* db.json"
+    "clear-db": "rm -f shots/* db.json",
+    "setup": "pm2 deploy ecosystem.json5 production setup",
+    "deploy": "pm2 deploy ecosystem.json production"
   },
   "devDependencies": {
     "eslint": "^4.8.0",
