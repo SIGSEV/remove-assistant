@@ -1,14 +1,15 @@
+const path = require('path')
 const puppeteer = require('puppeteer')
+const shortid = require('shortid')
 
-const getTweetURL = tweet => `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`
+const SHOTS_DIR = path.resolve(__dirname, '../shots')
 
-module.exports = async function screen(tweet) {
+module.exports = async function screen(url) {
   const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })
   const page = await browser.newPage()
-  const url = getTweetURL(tweet)
   await page.goto(url)
-  await page.screenshot({
-    path: 'hey.jpg',
-  })
+  const imgName = `${shortid.generate()}.jpg`
+  await page.screenshot({ path: path.join(SHOTS_DIR, imgName) })
   await browser.close()
+  return imgName
 }

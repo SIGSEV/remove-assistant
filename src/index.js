@@ -4,6 +4,8 @@ const Twitter = require('twitter')
 const watch = require('./watch')
 const screen = require('./screen')
 
+const getTweetURL = tweet => `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`
+
 const client = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -12,6 +14,7 @@ const client = new Twitter({
 })
 
 watch(client, 'idontforgt', async tweet => {
-  const imgBuffer = await screen(tweet)
-  console.log(imgBuffer)
+  const url = getTweetURL(tweet)
+  const imgName = await screen(url)
+  console.log(imgName)
 })
