@@ -1,0 +1,21 @@
+{
+  "name": "i-dont-forget",
+  "version": "1.0.0",
+  "description": "Friendly reminding you your deleted tweets ;)",
+  "main": "src/index.js",
+  "repository": "git@github.com:meriadec/i-dont-forget.git",
+  "author": "meriadec <meriadec.pillet@gmail.com>",
+  "license": "BSD-2-Clause",
+  "private": true,
+  "scripts": {
+    "start": "node src/index.js",
+    "lint": "eslint src",
+    "prettier": "prettier --write \"src/**/*.js\""
+  },
+  "devDependencies": {
+    "eslint": "^4.8.0",
+    "eslint-config-prettier": "^2.6.0",
+    "eslint-config-zavatta": "^6.0.1",
+    "prettier": "^1.7.4"
+  }
+}
