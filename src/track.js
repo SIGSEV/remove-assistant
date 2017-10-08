@@ -7,9 +7,18 @@ const getTweetURL = tweet => `https://twitter.com/${tweet.user.screen_name}/stat
 module.exports = function track(user) {
   watch(user, async tweet => {
     console.log(`>> @${user} just tweeted`)
+
     const url = getTweetURL(tweet)
     const shot = await screen(url)
-    save({ id: tweet.id_str, url, shot, lastCheck: new Date() })
+
+    const item = {
+      id: tweet.id_str,
+      user: tweet.user.screen_name,
+      url,
+      shot,
+      lastCheck: new Date(),
+    }
+    save(item)
     console.log(`>> saved a tweet from ${user}`)
   })
 }
