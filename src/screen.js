@@ -12,7 +12,9 @@ module.exports = async function screen(url) {
   }
   console.log(`>> taking a screenshot of ${url}`)
   const page = await b.newPage()
-  await page.goto(url)
+  await page.goto(url, {
+    waitUntil: 'networkidle',
+  })
   const imgName = `${shortid.generate()}.jpg`
   await page.screenshot({ path: path.join(SHOTS_DIR, imgName) })
   await page.close()
