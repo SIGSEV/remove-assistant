@@ -16,7 +16,6 @@ module.exports = function track(user) {
       user: tweet.user.screen_name,
       url,
       shot,
-      lastCheck: new Date(),
     }
     save(item)
     console.log(`>> saved a tweet from ${user}`)
