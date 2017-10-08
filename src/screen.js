@@ -14,10 +14,7 @@ module.exports = async function screen(url) {
   const page = await b.newPage()
   await page.goto(url)
   const imgName = `${shortid.generate()}.jpg`
-  await page.screenshot({
-    path: path.join(SHOTS_DIR, imgName),
-    fullPage: true,
-  })
+  await page.screenshot({ path: path.join(SHOTS_DIR, imgName) })
   await page.close()
   return imgName
 }
