@@ -13,9 +13,9 @@ module.exports = function getBrowser() {
   return browser
 }
 
-process.on('SIGINT', async () => {
-  if (browser) {
-    await browser.close()
-  }
-  process.exit()
-})
+// process.on('SIGINT', async () => {
+//   if (browser) {
+//     await browser.close()
+//   }
+//   process.exit()
+// })
