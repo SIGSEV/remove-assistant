@@ -1,7 +1,7 @@
 const request = require('request')
 
 const db = require('./db')
-const blame = require('./blame')
+const help = require('./help')
 
 // verify every 10s
 const RATE = 10e3
@@ -14,7 +14,7 @@ module.exports = async function verify() {
     const tweet = tweets[i]
     const isStillHere = await urlOK(tweet.url)
     if (!isStillHere) {
-      await blame(tweet)
+      await help(tweet)
     }
   }
   await wait(RATE)
