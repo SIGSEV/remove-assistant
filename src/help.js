@@ -12,7 +12,7 @@ const sentences = [
   u =>
     `.@${u} you should be careful in the future, I won't always be there to help you! 😊`,
   u =>
-    `Oh! @${u} one of your precious tweets got removed! Not pointing any fingers though.. 🇷🇺`,
+    `Oh nooo! 😢 @${u} one of your precious tweets got removed! Not pointing any fingers though.. 🇷🇺`,
   u =>
     `These deletion hacks are more and more common these days, @${u} just got affected too.. 😟`,
   u =>
