@@ -50,7 +50,7 @@ function uploadMedia(imgName) {
 }
 
 module.exports = async function help(tweet) {
-  console.log(`>> Notifying @${tweet.user} that he just deleted his tweet ;)`)
+  console.log(`>> Notifying @${tweet.user} that he just deleted his/her/they tweet ;)`)
   try {
     const imgID = await uploadMedia(tweet.shot)
     await postTweet(tweet, imgID)
