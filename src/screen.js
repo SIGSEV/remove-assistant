@@ -7,10 +7,7 @@ const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
 const SHOTS_DIR = path.resolve(__dirname, '../shots')
 
 module.exports = async function screen(url) {
-  const b = browser()
-  if (!b) {
-    return
-  }
+  const b = await browser
   console.log(`>> taking a screenshot of ${url}`)
   const imgName = `${shortid.generate()}.jpg`
   const page = await b.newPage()

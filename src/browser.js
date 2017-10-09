@@ -1,21 +1,20 @@
 const puppeteer = require('puppeteer')
 
-let browser
-puppeteer
-  .launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })
-  .then(b => (browser = b))
-  .catch(err => {
-    console.log(`x Cant launch browser: ${err}`)
-    process.exit(1)
+const browserPromise = puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })
+
+browserPromise.catch(err => {
+  console.log(`x Cant launch browser: ${err}`)
+  process.exit(1)
+})
+
+module.exports = browserPromise
+
+if (process.platform !== 'darwin') {
+  process.on('SIGINT', async () => {
+    const browser = await browserPromise
+    if (browser) {
+      await browser.close()
+    }
+    process.exit()
   })
-
-module.exports = function getBrowser() {
-  return browser
 }
-
-// process.on('SIGINT', async () => {
-//   if (browser) {
-//     await browser.close()
-//   }
-//   process.exit()
-// })
