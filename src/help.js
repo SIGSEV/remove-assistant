@@ -7,14 +7,11 @@ const db = require('./db')
 const SHOTS_DIR = path.resolve(__dirname, '../shots')
 
 const sentences = [
-  u =>
-    `Hey @${u}! You apparently clicked on the delete button without paying attention! 😁`,
-  u =>
-    `.@${u} you should be careful in the future, I won't always be there to help you! 😊`,
+  u => `Hey @${u}! You apparently clicked on the delete button without paying attention! 😁`,
+  u => `.@${u} you should be careful in the future, I won't always be there to help you! 😊`,
   u =>
     `Oh nooo! 😢 @${u} one of your precious tweets got removed! Not pointing any fingers though.. 🇷🇺`,
-  u =>
-    `Those deletion hacks are more and more common these days, @${u} just got affected too.. 😟`,
+  u => `Those deletion hacks are more and more common these days, @${u} just got affected too.. 😟`,
   u =>
     `Hey @${u}, you might have misclicked on the delete button but I got your back! Have a nice day! 🤗`,
 ]
@@ -31,7 +28,7 @@ function postTweet(tweet, imgID) {
       },
       () => {
         resolve()
-      }
+      },
     )
   })
 }
