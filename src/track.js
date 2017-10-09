@@ -10,7 +10,7 @@ module.exports = function track() {
 
   stream.on('data', async tweet => {
     const nick = tweet.user.screen_name
-    if (nick === 'idontforgt') {
+    if (nick === 'removeAssistant') {
       return
     }
 
