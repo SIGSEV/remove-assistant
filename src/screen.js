@@ -18,7 +18,7 @@ module.exports = async function screen(url) {
   // don't wait more than 3s for page load
   await page.goto(url, { waitUntil: 'networkidle', networkIdleTimeout: 3e3 })
 
-  await page.evaluate(() => {
+  const clip = await page.evaluate(() => {
     const header = document.querySelector('[data-reactroot] header')
     const eventualCookieFooter = document.querySelector('[data-reactroot] header + div')
     if (eventualCookieFooter) {
@@ -27,9 +27,23 @@ module.exports = async function screen(url) {
     if (header) {
       header.parentNode.removeChild(header)
     }
+    const tweetElement = document.querySelector('main > div > div')
+    if (!tweetElement) {
+      return null
+    }
+    const rect = tweetElement.getBoundingClientRect()
+    return { x: rect.left, y: rect.top, width: rect.width, height: rect.height }
   })
 
-  await page.screenshot({ path: path.join(SHOTS_DIR, imgName), fullPage: true })
+  if (!clip) {
+    throw new Error('Cant find tweet node')
+  }
+
+  await page.screenshot({
+    path: path.join(SHOTS_DIR, imgName),
+    clip,
+    quality: 80,
+  })
 
   // don't wait more than 2s for page close
   await Promise.race([page.close(), wait(2e3)])
