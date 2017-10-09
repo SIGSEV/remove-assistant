@@ -17,17 +17,20 @@ module.exports = function track() {
     console.log(`>> @${nick} just tweeted`)
 
     const url = getTweetURL(tweet)
-    const shot = await screen(url)
 
-    const item = {
-      id: tweet.id_str,
-      user: tweet.user.screen_name,
-      url,
-      shot,
+    try {
+      const shot = await screen(url)
+      const item = {
+        id: tweet.id_str,
+        user: tweet.user.screen_name,
+        url,
+        shot,
+      }
+      save(item)
+      console.log(`>> saved a tweet from ${nick}`)
+    } catch (err) {
+      console.log(`>> cant save tweet: ${err}`)
     }
-
-    save(item)
-    console.log(`>> saved a tweet from ${nick}`)
   })
 
   stream.on('error', error => {
