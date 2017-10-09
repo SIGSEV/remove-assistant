@@ -1,5 +1,9 @@
 # The Remove Assistant
 
+<p align='center'>
+  <img src='./logo.png' />
+</p>
+
 We noticed a lot of people inadvertently delete their tweets, or even worse are
 getting hacked by malicious entities who take pleasure in removing other's precious data!
 
