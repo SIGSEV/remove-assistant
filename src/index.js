@@ -1,5 +1,3 @@
-#!/bin/env node
-
 require('dotenv').config()
 
 const track = require('./track')

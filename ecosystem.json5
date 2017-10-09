@@ -1,7 +1,7 @@
 {
   "apps": [{
-    "name"  : "I dont forget",
-    "script": "src/i-dont-forget",
+    "name"  : "remove-assistant",
+    "script": "src/index.js",
     "env_production": {
       NODE_ENV: "production",
     },
@@ -11,8 +11,8 @@
       "user"       : "pm2",
       "host"       : "sigsev.io",
       "ref"        : "origin/master",
-      "repo"       : "git@github.com:SIGSEV/i-dont-forget.git",
-      "path"       : "/var/www/i-dont-forget",
+      "repo"       : "git@github.com:SIGSEV/remove-assistant.git",
+      "path"       : "/var/www/remove-assistant",
       "post-deploy": "yarn && pm2 startOrRestart ecosystem.json5 --env production",
     }
   }
