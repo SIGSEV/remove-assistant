@@ -1,8 +1,9 @@
 {
   "scripts": {
     "start": "node ./src/index.js",
+    "preview": "node ./bin/preview.js",
     "lint": "eslint src",
-    "prettier": "prettier --write \"src/**/*.js\"",
+    "prettier": "prettier --write \"{bin,src}/**/*.js\"",
     "clear-db": "rm -f shots/* db.json",
     "setup": "pm2 deploy ecosystem.json5 production setup",
     "deploy": "pm2 deploy ecosystem.json5 production"

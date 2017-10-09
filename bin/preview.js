@@ -5,4 +5,7 @@ if (!url) {
   throw new Error('you must provide an url')
 }
 
-screen(url).then(imgName => console.log(imgName))
+screen(url).then(imgName => {
+  console.log(imgName)
+  process.exit(0)
+})

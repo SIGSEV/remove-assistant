@@ -29,7 +29,7 @@ module.exports = async function screen(url) {
       return null
     }
     const rect = tweetElement.getBoundingClientRect()
-    return { x: rect.left, y: rect.top, width: rect.width, height: rect.height }
+    return { x: rect.left, y: rect.top, width: rect.width, height: Math.min(rect.height, 1950) }
   })
 
   if (!clip) {
