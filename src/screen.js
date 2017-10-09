@@ -3,6 +3,7 @@ const shortid = require('shortid')
 
 const browser = require('./browser')
 
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
 const SHOTS_DIR = path.resolve(__dirname, '../shots')
 
 module.exports = async function screen(url) {
@@ -14,7 +15,8 @@ module.exports = async function screen(url) {
   const imgName = `${shortid.generate()}.jpg`
   const page = await b.newPage()
 
-  await page.goto(url, { waitUntil: 'networkidle' })
+  // don't wait more than 3s for page load
+  await page.goto(url, { waitUntil: 'networkidle', networkIdleTimeout: 3e3 })
 
   await page.evaluate(() => {
     const header = document.querySelector('[data-reactroot] header')
@@ -22,10 +24,15 @@ module.exports = async function screen(url) {
     if (eventualCookieFooter) {
       eventualCookieFooter.parentNode.removeChild(eventualCookieFooter)
     }
-    header.parentNode.removeChild(header)
+    if (header) {
+      header.parentNode.removeChild(header)
+    }
   })
 
   await page.screenshot({ path: path.join(SHOTS_DIR, imgName), fullPage: true })
-  await page.close()
+
+  // don't wait more than 2s for page close
+  await Promise.race([page.close(), wait(2e3)])
+
   return imgName
 }
