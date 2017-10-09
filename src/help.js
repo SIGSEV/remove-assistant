@@ -14,7 +14,7 @@ const sentences = [
   u =>
     `Oh nooo! 😢 @${u} one of your precious tweets got removed! Not pointing any fingers though.. 🇷🇺`,
   u =>
-    `These deletion hacks are more and more common these days, @${u} just got affected too.. 😟`,
+    `Those deletion hacks are more and more common these days, @${u} just got affected too.. 😟`,
   u =>
     `Hey @${u}, you might have misclicked on the delete button but I got your back! Have a nice day! 🤗`,
 ]
