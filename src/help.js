@@ -14,6 +14,8 @@ const sentences = [
   u => `Those deletion hacks are more and more common these days, @${u} just got affected too.. 😟`,
   u =>
     `Hey @${u}, you might have misclicked on the delete button but I got your back! Have a nice day! 🤗`,
+  u => `Dear @${u}, I know you didn't want to delete that tweet, so I kept it warm for you! 😊`,
+  u => `Psst, @${u} :) Don't worry your tweet is not lost! Here it is:`,
 ]
 
 const getRandom = u => sentences[Math.floor(Math.random() * sentences.length)](u)
