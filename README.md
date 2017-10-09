@@ -1,7 +1,7 @@
-# The Remove Assistant
-
 <p align='center'>
-  <img src='./logo.png' />
+  <img src='./logo.png' width='200' />
+  <h3 align='center'>The Remove Assistant</h3>
+  <h5 align='center'>Helping the world one tweet at a time.</h5>
 </p>
 
 We noticed a lot of people inadvertently delete their tweets, or even worse are
