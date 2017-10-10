@@ -12,8 +12,8 @@ module.exports = async function verify() {
   const tweets = db.get('tweets').value()
   for (let i = 0; i < tweets.length; i++) {
     const tweet = tweets[i]
-    const isStillHere = await urlOK(tweet.url)
-    if (!isStillHere) {
+    const isLost = await check404(tweet.url)
+    if (isLost) {
       await help(tweet)
     }
   }
@@ -21,13 +21,10 @@ module.exports = async function verify() {
   verify()
 }
 
-function urlOK(url) {
+function check404(url) {
   return new Promise(resolve => {
     request(url, (err, res) => {
-      if (err) {
-        return resolve(false)
-      }
-      resolve(res.statusCode === 200)
+      resolve(err ? false : res.statusCode === 404)
     })
   })
 }
