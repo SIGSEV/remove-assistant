@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const track = require('./track')
 const verify = require('./verify')
+const serveSlack = require('./slack-server')
 
 console.log(`[[ STARTED REMOVE-ASSISTANT ]]`)
 
@@ -9,3 +10,4 @@ console.log(`[[ STARTED REMOVE-ASSISTANT ]]`)
 verify()
 
 track()
+serveSlack()
