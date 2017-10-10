@@ -31,7 +31,10 @@ function parseBody(req) {
     req.on('data', chunk => (data += chunk))
     req.on('end', () => {
       try {
-        const body = JSON.parse(data)
+        const body = data
+          .split('&')
+          .map(pair => pair.split('=').map(t => decodeURIComponent(t)))
+          .reduce((acc, pair) => ({ ...acc, [pair[0]]: pair[1] }), {})
         resolve(body)
       } catch (err) {
         reject(err)
