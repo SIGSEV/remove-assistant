@@ -14,7 +14,8 @@ module.exports = function track() {
       return
     }
 
-    console.log(`>> @${nick} just tweeted`)
+    const type = tweet.retweeted_status ? 'retweet' : 'tweet'
+    console.log(`>> @${nick} just ${type}ed`)
 
     const url = getTweetURL(tweet)
 
@@ -25,6 +26,7 @@ module.exports = function track() {
         user: tweet.user.screen_name,
         url,
         shot,
+        type,
       }
       save(item)
       console.log(`>> saved a tweet from ${nick}`)

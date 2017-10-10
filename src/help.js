@@ -6,26 +6,40 @@ const db = require('./db')
 
 const SHOTS_DIR = path.resolve(__dirname, '../shots')
 
-const sentences = [
-  u => `Hey @${u}! You apparently clicked on the delete button without paying attention! 😁`,
-  u => `.@${u} you should be careful in the future, I won't always be there to help you! 😊`,
-  u =>
-    `Oh nooo! 😢 @${u} one of your precious tweets got removed! Not pointing any fingers though.. 🇷🇺`,
-  u => `Those deletion hacks are more and more common these days, @${u} just got affected too.. 😟`,
-  u =>
-    `Hey @${u}, you might have misclicked on the delete button but I got your back! Have a nice day! 🤗`,
-  u => `Dear @${u}, I know you didn't want to delete that tweet, so I kept it warm for you! 😊`,
-  u => `Psst, @${u} :) Don't worry your tweet is not lost! Here it is:`,
-]
+const sentences = {
+  all: [
+    u =>
+      `.@${u} you should be careful in the future, I won't always be there to help you! 😊`,
+    (u, t) =>
+      `Oh nooo! 😢 @${u} one of your precious ${t}s got removed! Not pointing any fingers though.. 🇷🇺`,
+    (u, t) =>
+      `Dear @${u}, I know you didn't want to delete that ${t}, so I kept it warm for you! 😊`,
+    (u, t) => `Psst, @${u} :) Don't worry your ${t} is not lost! Here it is:`,
+    (u, t) => `I enjoyed @${u} ${t} so much that I took a picture of it!`,
+  ],
+  tweet: [
+    u =>
+      `Hey @${u}! You apparently clicked on the delete thingy without paying attention! 😁`,
+    u =>
+      `Those deletion hacks are more and more common these days, @${u} just got affected too.. 😟`,
+    u =>
+      `Hey @${u}, you might have misclicked on the delete button but I got your back! Have a nice day! 🤗`,
+    u => `This tweet from @${u} made history and needed to be preserved.`,
+  ],
+  retweet: [],
+}
 
-const getRandom = u => sentences[Math.floor(Math.random() * sentences.length)](u)
+const getRandom = (u, t) => {
+  const arr = sentences.all.concat(sentences[t])
+  return arr[Math.floor(Math.random() * arr.length)](u, t)
+}
 
 function postTweet(tweet, imgID) {
   return new Promise(resolve => {
     twitter.post(
       'statuses/update',
       {
-        status: getRandom(tweet.user),
+        status: getRandom(tweet.user, tweet.type),
         media_ids: imgID,
       },
       () => {
