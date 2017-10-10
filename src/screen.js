@@ -24,7 +24,7 @@ module.exports = async function screen(url) {
     if (header) {
       header.parentNode.removeChild(header)
     }
-    const tweetElement = document.querySelector('main > div > div')
+    const tweetElement = document.querySelector('[aria-label="Timeline: Conversation"] > div > div')
     if (!tweetElement) {
       return null
     }
