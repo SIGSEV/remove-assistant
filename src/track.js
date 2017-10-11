@@ -20,18 +20,18 @@ module.exports = function track(retry = 5) {
     const url = getTweetURL(tweet)
 
     try {
-      const shot = await screen(url)
+      const shotUrl = await screen(url, nick)
       const item = {
         id: tweet.id_str,
-        user: tweet.user.screen_name,
+        user: nick,
+        shotUrl,
         url,
-        shot,
         type,
       }
       save(item)
-      console.log(`>> saved a tweet from ${nick}`)
+      console.log(`>> saved a ${type} from ${nick}`)
     } catch (err) {
-      console.log(`>> cant save tweet: ${err}`)
+      console.log(`>> cant save ${type}: ${err}`)
     }
   })
 

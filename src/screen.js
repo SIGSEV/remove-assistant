@@ -1,12 +1,14 @@
+const fs = require('fs')
 const path = require('path')
 const shortid = require('shortid')
 
 const browser = require('./browser')
+const flickr = require('./flickr')
 
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
 const SHOTS_DIR = path.resolve(__dirname, '../shots')
 
-module.exports = async function screen(url) {
+module.exports = async function screen(url, nick) {
   const b = await browser
   console.log(`>> taking a screenshot of ${url}`)
   const imgName = `${shortid.generate()}.jpg`
@@ -21,16 +23,24 @@ module.exports = async function screen(url) {
     throw new Error('Cant find tweet node')
   }
 
+  const filePath = path.join(SHOTS_DIR, imgName)
   await page.screenshot({
-    path: path.join(SHOTS_DIR, imgName),
+    path: filePath,
     clip,
     quality: 80,
   })
 
+  const flickUrl = await flickr(filePath, {
+    tags: [nick],
+  })
+
+  // Remove temp file
+  fs.unlinkSync(filePath) // eslint-disable-line no-sync
+
   // don't wait more than 2s for page close
   await Promise.race([page.close(), wait(2e3)])
 
-  return imgName
+  return flickUrl
 }
 
 function evaluate(url) {
@@ -43,7 +53,9 @@ function evaluate(url) {
     header.parentNode.removeChild(header)
   }
 
-  const tweetElement = document.querySelector('[aria-label="Timeline: Conversation"] > div > div')
+  const tweetElement = document.querySelector(
+    '[aria-label="Timeline: Conversation"] > div > div'
+  )
   if (!tweetElement) {
     return null
   }
@@ -69,5 +81,10 @@ function evaluate(url) {
   console.log(tweetElement.innerHTML)
 
   const rect = tweetElement.getBoundingClientRect()
-  return { x: rect.left, y: rect.top, width: rect.width, height: Math.min(rect.height, 1950) }
+  return {
+    x: rect.left,
+    y: rect.top,
+    width: rect.width,
+    height: Math.min(rect.height, 1950),
+  }
 }

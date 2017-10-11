@@ -1,10 +1,7 @@
-const path = require('path')
-const fs = require('fs')
+const request = require('request')
 
 const twitter = require('./twitter')
 const db = require('./db')
-
-const SHOTS_DIR = path.resolve(__dirname, '../shots')
 
 const sentences = {
   all: [
@@ -44,16 +41,27 @@ function postTweet(tweet, imgID) {
       },
       () => {
         resolve()
-      },
+      }
     )
   })
 }
 
-function uploadMedia(imgName) {
-  const imgPath = path.resolve(SHOTS_DIR, imgName)
-  const imgData = fs.readFileSync(imgPath) // eslint-disable-line no-sync
+function getBuffer(url) {
   return new Promise((resolve, reject) => {
-    twitter.post('media/upload', { media: imgData }, (err, media) => {
+    request({ url, encoding: null }, (err, response, body) => {
+      if (!err && response.statusCode === 200) {
+        resolve(body)
+      } else {
+        reject(err)
+      }
+    })
+  })
+}
+
+function uploadMedia(shotUrl) {
+  return new Promise(async (resolve, reject) => {
+    const media = await getBuffer(shotUrl)
+    twitter.post('media/upload', { media }, (err, media) => {
       if (err) {
         return reject(err)
       }
@@ -65,7 +73,7 @@ function uploadMedia(imgName) {
 module.exports = async function help(tweet) {
   console.log(`>> Notifying @${tweet.user} that he just deleted his/her/they tweet ;)`)
   try {
-    const imgID = await uploadMedia(tweet.shot)
+    const imgID = await uploadMedia(tweet.shotUrl)
     await postTweet(tweet, imgID)
     db
       .get('tweets')
