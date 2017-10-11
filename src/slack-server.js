@@ -1,5 +1,7 @@
 const http = require('http')
 
+const twitter = require('./twitter')
+
 module.exports = function createServer(port = 3124) {
   const server = http.createServer(handler)
   server.listen(port, err => {
@@ -11,15 +13,40 @@ module.exports = function createServer(port = 3124) {
   })
 }
 
+const twitterCall = (method, url, payload = {}) =>
+  new Promise((resolve, reject) => {
+    twitter[method](url, payload, err => {
+      if (err) {
+        return reject(err)
+      }
+      resolve()
+    })
+  })
+
+const updateFriendship = (type, screen_name) =>
+  twitterCall('post', `friendships/${type === 'AMl' ? 'destroy' : 'create'}`, {
+    screen_name,
+  })
+
+const actions = {
+  follow: body => updateFriendship('AMI', body.text),
+  unfollow: body => updateFriendship('AMl', body.text),
+  delete: body => twitterCall('post', `statuses/destroy/${body.text}`),
+}
+
 async function handler(req, res) {
   try {
     const body = await parseBody(req)
-    console.log(req.url)
-    console.log(body)
-    res.writeHead(200)
-    res.end('OK')
+    const cmd = req.url.substr(1)
+    if (actions[cmd]) {
+      await actions[cmd](body)
+      res.writeHead(200)
+      res.end('OK')
+    } else {
+      throw new Error('No such command, bitch(e).')
+    }
   } catch (err) {
-    res.writeHead(500)
+    res.writeHead(400)
     console.log(err)
     res.end(err.message)
   }
