@@ -2,6 +2,7 @@
   "scripts": {
     "start": "node ./src/index.js",
     "preview": "node ./bin/preview.js",
+    "remove-from-flickr": "node ./bin/remove-from-flickr.js",
     "lint": "eslint src",
     "prettier": "prettier --write \"{bin,src}/**/*.js\"",
     "clear-db": "rm -f shots/* db.json",

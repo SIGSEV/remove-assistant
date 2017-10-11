@@ -3,7 +3,7 @@ const path = require('path')
 const shortid = require('shortid')
 
 const browser = require('./browser')
-const flickr = require('./flickr')
+const { uploadPicture } = require('./flickr')
 
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms))
 const SHOTS_DIR = path.resolve(__dirname, '../shots')
@@ -29,7 +29,7 @@ module.exports = async function screen(url, nick) {
     clip,
   })
 
-  const flickUrl = await flickr(filePath, {
+  const flickUrl = await uploadPicture(filePath, {
     tags: [nick],
   })
 
