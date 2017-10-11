@@ -15,6 +15,11 @@ module.exports = function track(retry = 5) {
     }
 
     const type = tweet.retweeted_status ? 'retweet' : 'tweet'
+    if (type === 'retweet' && tweet.user.followers_count < 1E6) {
+      // sorry you are not influencial enough
+      return
+    }
+
     console.log(`>> @${nick} just ${type}ed`)
 
     const url = getTweetURL(tweet)
