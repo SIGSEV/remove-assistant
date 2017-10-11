@@ -11,7 +11,7 @@ const SHOTS_DIR = path.resolve(__dirname, '../shots')
 module.exports = async function screen(url, nick) {
   const b = await browser
   console.log(`>> taking a screenshot of ${url}`)
-  const imgName = `${shortid.generate()}.jpg`
+  const imgName = `${shortid.generate()}.png`
   const page = await b.newPage()
 
   // don't wait more than 3s for page load
@@ -27,7 +27,6 @@ module.exports = async function screen(url, nick) {
   await page.screenshot({
     path: filePath,
     clip,
-    quality: 80,
   })
 
   const flickUrl = await flickr(filePath, {
