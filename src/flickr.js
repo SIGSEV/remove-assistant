@@ -7,7 +7,7 @@ const auth = Flickr.OAuth.createPlugin(
   process.env.FLICKR_OAUTH_TOKEN_SECRET
 )
 
-const fl = new Flickr(process.env.FLICKR_API_KEY)
+const fl = new Flickr(process.env.FLICKR_CONSUMER_KEY)
 
 module.exports = async function flickr(path, payload) {
   const res = await new Flickr.Upload(auth, path, {
