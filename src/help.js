@@ -5,8 +5,7 @@ const db = require('./db')
 
 const sentences = {
   all: [
-    u =>
-      `.@${u} you should be careful in the future, I won't always be there to help you! 😊`,
+    u => `.@${u} you should be careful in the future, I won't always be there to help you! 😊`,
     (u, t) =>
       `Oh nooo! 😢 @${u} one of your precious ${t}s got removed! Not pointing any fingers though.. 🇷🇺`,
     (u, t) =>
@@ -15,8 +14,7 @@ const sentences = {
     (u, t) => `I enjoyed @${u} ${t} so much that I took a picture of it!`,
   ],
   tweet: [
-    u =>
-      `Hey @${u}! You apparently clicked on the delete thingy without paying attention! 😁`,
+    u => `Hey @${u}! You apparently clicked on the delete thingy without paying attention! 😁`,
     u =>
       `Those deletion hacks are more and more common these days, @${u} just got affected too.. 😟`,
     u =>
@@ -41,7 +39,7 @@ function postTweet(tweet, imgID) {
       },
       () => {
         resolve()
-      }
+      },
     )
   })
 }

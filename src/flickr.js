@@ -4,7 +4,7 @@ const auth = Flickr.OAuth.createPlugin(
   process.env.FLICKR_CONSUMER_KEY,
   process.env.FLICKR_CONSUMER_SECRET,
   process.env.FLICKR_OAUTH_TOKEN,
-  process.env.FLICKR_OAUTH_TOKEN_SECRET
+  process.env.FLICKR_OAUTH_TOKEN_SECRET,
 )
 
 const fl = new Flickr(process.env.FLICKR_CONSUMER_KEY)

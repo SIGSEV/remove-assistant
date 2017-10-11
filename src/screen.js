@@ -52,9 +52,7 @@ function evaluate(url) {
     header.parentNode.removeChild(header)
   }
 
-  const tweetElement = document.querySelector(
-    '[aria-label="Timeline: Conversation"] > div > div'
-  )
+  const tweetElement = document.querySelector('[aria-label="Timeline: Conversation"] > div > div')
   if (!tweetElement) {
     return null
   }
